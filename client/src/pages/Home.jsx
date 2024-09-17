@@ -1,4 +1,5 @@
 import BestSeller from "../components/BestSeller";
+import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import LatestCollection from "../components/LatestCollection";
 import NewsLetterBox from "../components/NewsLetterBox";
@@ -12,6 +13,7 @@ const Home = () => {
       <BestSeller />
       <OurPolicy />
       <NewsLetterBox />
+      <Footer />
     </div>
   );
 };
