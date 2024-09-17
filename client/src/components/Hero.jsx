@@ -2,7 +2,7 @@ import { assets } from "../assets/assets";
 
 const Hero = () => {
   return (
-    <div className="flex flex-col md:flex-row border border-gray-400">
+    <div className="flex flex-col md:flex-row border border-gray-400 mt-4">
       {/*Hero left side */}
       <div className="w-full md:w-1/2 flex items-center justify-center py-10 md:py-0">
         <div className="text-[#414141]">
