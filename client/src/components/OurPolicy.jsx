@@ -3,7 +3,7 @@ import { assets } from "../assets/assets";
 const OurPolicy = () => {
   return (
     <section
-      className="flex flex-col md:flex-row justify-around gap-12 md:gap-2 
+      className="flex flex-col sm:flex-row justify-around gap-12 md:gap-2 
     text-center py-20 text-xs md:text-base text-gray-700"
     >
       <div>
