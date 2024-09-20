@@ -29,6 +29,15 @@ const ShopContextProvider = ({ children }) => {
     setCartItems(cartData);
   };
 
+  const getCartCount = () => {
+    let count = 0;
+    for (let obj of Object.values(cartItems)) {
+      for (let val of Object.values(obj)) {
+        count = count + val;
+      }
+    }
+    return count;
+  };
   const value = {
     products,
     currency,
@@ -39,6 +48,7 @@ const ShopContextProvider = ({ children }) => {
     setShowSearch,
     cartItems,
     addToCart,
+    getCartCount,
   };
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
 };
