@@ -5,7 +5,8 @@ const express = require("express");
 const app = express();
 
 //database
-const connectDB = require("./db/connect");
+const connectDB = require("./config/dbconnect");
+const connectCloudinary = require("./config/cloudinary");
 
 //rest of the packages
 const cors = require("cors");
@@ -25,6 +26,7 @@ const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
     console.log("Database connected successfully");
+    await connectCloudinary();
     app.listen(port, () =>
       console.log(`Server is listening on port ${port}...`)
     );
