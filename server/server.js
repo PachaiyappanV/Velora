@@ -12,15 +12,17 @@ const morgan = require("morgan");
 const connectDB = require("./config/dbconnect");
 const connectCloudinary = require("./config/cloudinary");
 
+//routers
+const authRouter = require("./routes/authRoutes");
+
 // middleware
 const errorHandlerMiddleware = require("./middleware/error-handler");
 
 app.use(morgan("tiny"));
 app.use(cors());
+app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello world");
-});
+app.use("/api/auth", authRouter);
 
 app.use(errorHandlerMiddleware);
 
