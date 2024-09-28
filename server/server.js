@@ -15,6 +15,7 @@ const connectCloudinary = require("./config/cloudinary");
 
 //routers
 const authRouter = require("./routes/authRoutes");
+const productRouter = require("./routes/productRoutes");
 
 // middleware
 const errorHandlerMiddleware = require("./middleware/error-handler");
@@ -24,6 +25,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRouter);
+app.use("/api/products", productRouter);
 
 app.use(errorHandlerMiddleware);
 
