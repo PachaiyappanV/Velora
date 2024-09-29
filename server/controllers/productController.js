@@ -1,6 +1,7 @@
 const cloudinary = require("cloudinary").v2;
 const Product = require("../models/Product");
 const { StatusCodes } = require("http-status-codes");
+const { NotFoundError } = require("../errors");
 const addProduct = async (req, res) => {
   const { name, description, price, category, subCategory, sizes, bestseller } =
     req.body;
@@ -51,7 +52,15 @@ const listProducts = async (req, res) => {
 };
 
 const removeProduct = async (req, res) => {
-  res.send("removeProduct");
+  const { id: productId } = req.params;
+  const product = await Product.findByIdAndDelete(productId);
+  if (!product) {
+    throw new NotFoundError(`No product with id: ${productId}`);
+  }
+  res.status(StatusCodes.OK).json({
+    status: "success",
+    message: "product removed successfully",
+  });
 };
 
 const singleProduct = async (req, res) => {
