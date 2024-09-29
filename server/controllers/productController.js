@@ -64,7 +64,17 @@ const removeProduct = async (req, res) => {
 };
 
 const singleProduct = async (req, res) => {
-  res.send("singleProduct");
+  const { id: productId } = req.params;
+  const product = await Product.findById(productId);
+  if (!product) {
+    throw new NotFoundError(`No product with id: ${productId}`);
+  }
+  res.status(StatusCodes.OK).json({
+    status: "success",
+    data: {
+      product,
+    },
+  });
 };
 
 module.exports = {
