@@ -7,7 +7,6 @@ const {
   removeProduct,
   singleProduct,
 } = require("../controllers/productController");
-const upload = require("../middleware/multer");
 
 router.post(
   "/addProduct",
