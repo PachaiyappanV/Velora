@@ -41,7 +41,13 @@ const addProduct = async (req, res) => {
 };
 
 const listProducts = async (req, res) => {
-  res.send("listProducts");
+  const products = await Product.find({});
+  res.status(StatusCodes.OK).json({
+    status: "success",
+    data: {
+      products,
+    },
+  });
 };
 
 const removeProduct = async (req, res) => {
