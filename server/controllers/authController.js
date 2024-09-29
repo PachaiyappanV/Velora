@@ -46,7 +46,22 @@ const login = async (req, res) => {
 };
 
 const adminLogin = async (req, res) => {
-  res.send("adminLogin");
+  const { email, password } = req.body;
+  if (
+    email === process.env.ADMIN_EMAIL &&
+    password === process.env.ADMIN_PASSWORD
+  ) {
+    const tokenUser = { email: process.env.ADMIN_EMAIL };
+    attachCookiesToResponse({ res, tokenUser });
+    res.status(StatusCodes.OK).json({
+      status: "success",
+      data: {
+        user: tokenUser,
+      },
+    });
+  } else {
+    throw new UnauthenticatedError("Invalid Credentials");
+  }
 };
 
 module.exports = { register, login, adminLogin };
