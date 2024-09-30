@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const upload = require("../middleware/multer");
+const { authenticateAdmin } = require("../middleware/authentication");
 const {
   addProduct,
   listProducts,
@@ -11,6 +12,7 @@ const {
 router
   .route("/")
   .post(
+    authenticateAdmin,
     upload.fields([
       { name: "image1", maxCount: 1 },
       { name: "image2", maxCount: 1 },
@@ -21,6 +23,9 @@ router
   )
   .get(listProducts);
 
-router.route("/:id").get(singleProduct).delete(removeProduct);
+router
+  .route("/:id")
+  .get(singleProduct)
+  .delete(authenticateAdmin, removeProduct);
 
 module.exports = router;

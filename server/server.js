@@ -8,6 +8,7 @@ const app = express();
 //rest of the packages
 const cors = require("cors");
 const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
 
 //database
 const connectDB = require("./config/dbconnect");
@@ -23,6 +24,7 @@ const errorHandlerMiddleware = require("./middleware/error-handler");
 app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/auth", authRouter);
 app.use("/api/products", productRouter);
