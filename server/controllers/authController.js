@@ -56,7 +56,7 @@ const adminLogin = async (req, res) => {
     res.status(StatusCodes.OK).json({
       status: "success",
       data: {
-        user: tokenUser,
+        admin: tokenUser,
       },
     });
   } else {
@@ -64,4 +64,12 @@ const adminLogin = async (req, res) => {
   }
 };
 
-module.exports = { register, login, adminLogin };
+const logout = async (req, res) => {
+  res.cookie("token", "logout", {
+    httpOnly: true,
+    expires: new Date(Date.now() + 1000),
+  });
+  res.status(StatusCodes.OK).json({ message: "logged out" });
+};
+
+module.exports = { register, login, adminLogin, logout };
