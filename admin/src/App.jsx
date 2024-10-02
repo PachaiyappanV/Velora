@@ -23,7 +23,7 @@ export default function App() {
       <ToastContainer />
       {admin !== "" ? (
         <>
-          <Navbar />
+          <Navbar setAdmin={setAdmin} />
           <div className="flex w-full">
             <Sidebar />
             <div
