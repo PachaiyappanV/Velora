@@ -2,7 +2,7 @@ const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, UnauthenticatedError } = require("../errors");
 const createTokenUser = require("../utils/createTokenUser");
-const { attachCookiesToResponse } = require("../utils/jwt");
+const { createJWT } = require("../utils/jwt");
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -13,12 +13,11 @@ const register = async (req, res) => {
   //create user
   const user = await User.create({ name, email, password });
   const tokenUser = createTokenUser(user);
-  attachCookiesToResponse({ res, tokenUser });
+  //attachCookiesToResponse({ res, tokenUser });
+  const token = createJWT({ payload: tokenUser });
   res.status(StatusCodes.CREATED).json({
     status: "success",
-    data: {
-      user: tokenUser,
-    },
+    token,
   });
 };
 
@@ -36,12 +35,11 @@ const login = async (req, res) => {
     throw new UnauthenticatedError("Invalid Credentials");
   }
   const tokenUser = createTokenUser(user);
-  attachCookiesToResponse({ res, tokenUser });
+  //attachCookiesToResponse({ res, tokenUser });
+  const token = createJWT({ payload: tokenUser });
   res.status(StatusCodes.OK).json({
     status: "success",
-    data: {
-      user: tokenUser,
-    },
+    token,
   });
 };
 
@@ -52,12 +50,11 @@ const adminLogin = async (req, res) => {
     password === process.env.ADMIN_PASSWORD
   ) {
     const tokenUser = { email: process.env.ADMIN_EMAIL };
-    attachCookiesToResponse({ res, tokenUser });
+    //attachCookiesToResponse({ res, tokenUser });
+    const token = createJWT({ payload: tokenUser });
     res.status(StatusCodes.OK).json({
       status: "success",
-      data: {
-        admin: tokenUser,
-      },
+      token,
     });
   } else {
     throw new UnauthenticatedError("Invalid Credentials");
