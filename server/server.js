@@ -21,8 +21,31 @@ const productRouter = require("./routes/productRoutes");
 // middleware
 const errorHandlerMiddleware = require("./middleware/error-handler");
 
+//cors config
+const allowedOrigins = [
+  "http://localhost:5100",
+  "http://localhost:5173",
+  "https://e-commerce-app-three-kappa.vercel.app",
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // If there is no origin (like for same-origin requests), allow it
+      if (!origin) return callback(null, true);
+
+      // Check if the incoming request's origin is in the allowed origins array
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // This is necessary to allow cookies
+  })
+);
+
 app.use(morgan("tiny"));
-app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
