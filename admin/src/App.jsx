@@ -27,7 +27,7 @@ export default function App() {
           <div className="flex w-full">
             <Sidebar />
             <div
-              className="w-[70%] mx-auto ml-[max(5vw,25px)] my-8 text-gray-600 
+              className=" w-[70%] mx-auto ml-[max(5vw,25px)] my-8 text-gray-600 
           text-base"
             >
               <Routes>
