@@ -45,7 +45,9 @@ const Add = () => {
         `${import.meta.env.VITE_API_URL}/api/products`,
         formData,
         {
-          withCredentials: true, // This ensures cookies are sent with the request
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
 
@@ -135,6 +137,7 @@ const Add = () => {
       <div className="w-full">
         <p className="mb-2">Product name</p>
         <input
+          value={name}
           onChange={(e) => setName(e.target.value)}
           className="w-full max-w-[500px] px-3 py-2"
           type="text"
@@ -145,6 +148,7 @@ const Add = () => {
       <div className="w-full">
         <p className="mb-2">Product description</p>
         <textarea
+          value={description}
           onChange={(e) => setDescription(e.target.value)}
           className="w-full max-w-[500px] px-3 py-2"
           type="text"
@@ -156,6 +160,7 @@ const Add = () => {
         <div className="">
           <p className="mb-2">Product category</p>
           <select
+            value={category}
             onChange={(e) => setCategory(e.target.value)}
             className="w-full px-3 py-2"
           >
@@ -168,6 +173,7 @@ const Add = () => {
         <div className="">
           <p className="mb-2">Product Sub category</p>
           <select
+            value={subCategory}
             onChange={(e) => setSubCategory(e.target.value)}
             className="w-full px-3 py-2"
           >
@@ -180,6 +186,7 @@ const Add = () => {
         <div>
           <p className="mb-2">Product price</p>
           <input
+            value={price}
             onChange={(e) => setPrice(e.target.value)}
             className="w-full px-3 py-2 sm:w-[120px]"
             type="number"

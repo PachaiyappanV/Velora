@@ -10,20 +10,20 @@ import List from "./pages/List";
 import Orders from "./pages/Orders";
 
 export default function App() {
-  const [admin, setAdmin] = useState(
-    localStorage.getItem("admin") ? localStorage.getItem("admin") : ""
+  const [token, setToken] = useState(
+    localStorage.getItem("token") ? localStorage.getItem("token") : ""
   );
 
   useEffect(() => {
-    localStorage.setItem("admin", admin);
-  }, [admin]);
+    localStorage.setItem("token", token);
+  }, [token]);
 
   return (
     <div className="bg-gray-50 min-h-screen">
       <ToastContainer />
-      {admin !== "" ? (
+      {token !== "" ? (
         <>
-          <Navbar setAdmin={setAdmin} />
+          <Navbar setToken={setToken} />
           <div className="flex w-full">
             <Sidebar />
             <div
@@ -39,7 +39,7 @@ export default function App() {
           </div>
         </>
       ) : (
-        <Login setAdmin={setAdmin} />
+        <Login setToken={setToken} />
       )}
     </div>
   );
