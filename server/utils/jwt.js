@@ -10,12 +10,12 @@ const isTokenValid = ({ token }) => jwt.verify(token, process.env.JWT_SECRET);
 
 const attachCookiesToResponse = ({ res, tokenUser }) => {
   const token = createJWT({ payload: tokenUser });
-  const oneDay = 1000 * 60 * 60 * 24;
+  const oneWeek = 1000 * 60 * 60 * 24 * 7;
   res.cookie("token", token, {
+    expires: new Date(Date.now() + oneWeek),
     httpOnly: true,
-    expires: new Date(Date.now() + oneDay),
-    sameSite: "none",
     secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "Lax",
   });
 };
 

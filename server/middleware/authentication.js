@@ -1,7 +1,7 @@
 const { isTokenValid } = require("../utils/jwt");
 const UnauthenticatedError = require("../errors/unauthenticated");
 const authenticateAdmin = (req, res, next) => {
-  const token = req.cookies.token + "78";
+  const token = req.cookies.token + "l";
   if (!token) {
     throw new UnauthenticatedError("Authentication Invalid");
   }

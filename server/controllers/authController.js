@@ -66,8 +66,10 @@ const adminLogin = async (req, res) => {
 
 const logout = async (req, res) => {
   res.cookie("token", "logout", {
-    httpOnly: true,
     expires: new Date(Date.now() + 1000),
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "Lax",
   });
   res.status(StatusCodes.OK).json({ message: "logged out" });
 };
