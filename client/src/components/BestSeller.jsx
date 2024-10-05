@@ -6,10 +6,11 @@ import Title from "./Title";
 const BestSeller = () => {
   const { products } = useContext(ShopContext);
   const [bestSellers, setBestSellers] = useState([]);
+  console.table(products[0]);
   useEffect(() => {
     const bestProducts = products.filter((product) => product.bestseller);
     setBestSellers(bestProducts.slice(0, 5));
-  }, []);
+  }, [products]);
   return (
     <div className="my-10">
       <div className="text-center py-8  text-xl sm:text-2xl lg:text-3xl">

@@ -1,9 +1,11 @@
-import { createContext, useState } from "react";
+import axios from "axios";
+import { createContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { products } from "../assets/assets";
+
 export const ShopContext = createContext();
 
 const ShopContextProvider = ({ children }) => {
+  const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [cartItems, setCartItems] = useState({});
@@ -58,6 +60,25 @@ const ShopContextProvider = ({ children }) => {
     }
     return totalAmount;
   };
+
+  const getProducts = async () => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/products`
+      );
+      setProducts(data.data.products);
+    } catch (error) {
+      if (error.response.data.status === "fail") {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Something went wrong please try again later");
+      }
+    }
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   const value = {
     products,
