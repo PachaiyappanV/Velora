@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
-
+import { toast } from "react-toastify";
+const apiUrl = import.meta.env.VITE_API_URL;
 export const ShopContext = createContext();
 
 const ShopContextProvider = ({ children }) => {
@@ -9,6 +9,7 @@ const ShopContextProvider = ({ children }) => {
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [cartItems, setCartItems] = useState({});
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
   const currency = "$";
   const delivery_fee = 10;
 
@@ -80,6 +81,10 @@ const ShopContextProvider = ({ children }) => {
     getProducts();
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("token", token);
+  }, [token]);
+
   const value = {
     products,
     currency,
@@ -93,6 +98,9 @@ const ShopContextProvider = ({ children }) => {
     getCartCount,
     updateQuantity,
     getCartAmount,
+    apiUrl,
+    token,
+    setToken,
   };
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
 };

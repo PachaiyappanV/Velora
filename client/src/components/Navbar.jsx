@@ -4,7 +4,8 @@ import { assets } from "../assets/assets.js";
 import { ShopContext } from "../context/ShopContext.jsx";
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
-  const { setShowSearch, getCartCount } = useContext(ShopContext);
+  const { setShowSearch, getCartCount, token, setToken } =
+    useContext(ShopContext);
   const navigate = useNavigate();
 
   return (
@@ -47,14 +48,24 @@ const Navbar = () => {
               className="w-5 cursor-pointer"
             />
           </Link>
-
-          <div className="hidden group-hover:block absolute right-0 pt-4">
-            <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500">
-              <p className=" cursor-pointer hover:text-black">My Profile</p>
-              <p className=" cursor-pointer hover:text-black">Orders</p>
-              <p className=" cursor-pointer hover:text-black">Logo</p>
+          {/* Drop down menu*/}
+          {token && (
+            <div className="hidden group-hover:block absolute right-0 pt-4">
+              <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500">
+                <p className=" cursor-pointer hover:text-black">My Profile</p>
+                <p className=" cursor-pointer hover:text-black">Orders</p>
+                <p
+                  onClick={() => {
+                    navigate("/login");
+                    setToken("");
+                  }}
+                  className=" cursor-pointer hover:text-black"
+                >
+                  Logout
+                </p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
         <Link to="/cart" className="relative">
           <img src={assets.cart_icon} className="w-5 min-w-5" alt="cart" />
