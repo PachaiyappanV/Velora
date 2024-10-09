@@ -30,6 +30,27 @@ const ShopContextProvider = ({ children }) => {
       cartData[itemId][size] = 1;
     }
     setCartItems(cartData);
+
+    try {
+      axios.post(
+        `${apiUrl}/api/cart`,
+        {
+          productId: itemId,
+          size,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (error) {
+      if (error.response.data.status === "fail") {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Something went wrong please try again later");
+      }
+    }
   };
 
   const getCartCount = () => {
@@ -46,6 +67,28 @@ const ShopContextProvider = ({ children }) => {
     const cartData = structuredClone(cartItems);
     cartData[productId][size] = quantity;
     setCartItems(cartData);
+
+    try {
+      axios.patch(
+        `${apiUrl}/api/cart`,
+        {
+          quantity,
+          productId,
+          size,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (error) {
+      if (error.response.data.status === "fail") {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Something went wrong please try again later");
+      }
+    }
   };
 
   const getCartAmount = () => {
@@ -77,12 +120,35 @@ const ShopContextProvider = ({ children }) => {
     }
   };
 
+  const getUserCart = async () => {
+    try {
+      const { data } = await axios.get(`${apiUrl}/api/cart`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setCartItems(data.data.cartData);
+    } catch (error) {
+      if (error.response.data.status === "fail") {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Something went wrong please try again later");
+      }
+    }
+  };
+
   useEffect(() => {
     getProducts();
   }, []);
 
   useEffect(() => {
     localStorage.setItem("token", token);
+  }, [token]);
+
+  useEffect(() => {
+    if (token) {
+      getUserCart();
+    }
   }, [token]);
 
   const value = {

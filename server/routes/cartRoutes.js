@@ -7,6 +7,12 @@ const {
   getUserCart,
 } = require("../controllers/cartController");
 
-router.route("/").post(addToCart).get(getUserCart).patch(updateCart);
+const { authenticateUser } = require("../middleware/authentication");
+
+router
+  .route("/")
+  .post(authenticateUser, addToCart)
+  .get(authenticateUser, getUserCart)
+  .patch(authenticateUser, updateCart);
 
 module.exports = router;

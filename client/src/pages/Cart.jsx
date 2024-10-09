@@ -12,21 +12,22 @@ const Cart = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const tempData = [];
-
-    for (const id in cartItems) {
-      for (const size in cartItems[id]) {
-        if (cartItems[id][size] > 0) {
-          tempData.push({
-            _id: id,
-            size,
-            quantity: cartItems[id][size],
-          });
+    if (products.length > 0) {
+      const tempData = [];
+      for (const id in cartItems) {
+        for (const size in cartItems[id]) {
+          if (cartItems[id][size] > 0) {
+            tempData.push({
+              _id: id,
+              size,
+              quantity: cartItems[id][size],
+            });
+          }
         }
       }
+      setCartData(tempData);
     }
-    setCartData(tempData);
-  }, [cartItems]);
+  }, [cartItems, products]);
   return (
     <div className="border-t pt-14">
       <div className="text-2xl mb-3 flex">
