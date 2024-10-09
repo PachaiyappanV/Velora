@@ -21,7 +21,7 @@ router
     ]),
     addProduct
   )
-  .get(authenticateAdmin, listProducts);
+  .get(listProducts);
 
 router
   .route("/:id")

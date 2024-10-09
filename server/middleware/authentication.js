@@ -28,4 +28,28 @@ const authenticateAdmin = (req, res, next) => {
   }
 };
 
-module.exports = { authenticateAdmin };
+const authenticateUser = (req, res, next) => {
+  let token;
+  // check header
+  const authHeader = req.headers.authorization;
+  if (authHeader && authHeader.startsWith("Bearer")) {
+    token = authHeader.split(" ")[1];
+  }
+  // check cookies
+  else if (req.cookies.token) {
+    token = req.cookies.token;
+  }
+
+  if (!token) {
+    throw new UnauthenticatedError("Authentication Invalid");
+  }
+  try {
+    const { email, userId, name } = isTokenValid({ token });
+    req.user = { email, userId, name };
+    next();
+  } catch (err) {
+    throw new UnauthenticatedError("Authentication Invalid");
+  }
+};
+
+module.exports = { authenticateAdmin, authenticateUser };

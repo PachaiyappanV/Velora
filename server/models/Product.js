@@ -33,8 +33,9 @@ const ProductSchema = new mongoose.Schema({
     type: Array,
     required: [true, "Please provide product sizes"],
   },
-  bestSeller: {
+  bestseller: {
     type: Boolean,
+    default: false,
   },
   date: {
     type: Number,
