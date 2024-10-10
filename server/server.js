@@ -18,6 +18,7 @@ const connectCloudinary = require("./config/cloudinary");
 const authRouter = require("./routes/authRoutes");
 const productRouter = require("./routes/productRoutes");
 const cartRouter = require("./routes/cartRoutes");
+const orderRouter = require("./routes/orderRoutes");
 
 // middleware
 const errorHandlerMiddleware = require("./middleware/error-handler");
@@ -53,6 +54,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRouter);
 app.use("/api/products", productRouter);
 app.use("/api/cart", cartRouter);
+app.use("/api/order", orderRouter);
 
 app.use(errorHandlerMiddleware);
 
