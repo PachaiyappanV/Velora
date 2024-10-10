@@ -33,7 +33,13 @@ const placeOrderRazorPay = async (req, res) => {
 };
 
 const allOrders = async (req, res) => {
-  res.send("all orders");
+  const orders = await Order.find({});
+  res.status(StatusCodes.OK).json({
+    status: "success",
+    data: {
+      orders,
+    },
+  });
 };
 
 const userOrders = async (req, res) => {
