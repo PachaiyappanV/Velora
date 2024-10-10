@@ -1,5 +1,6 @@
 const Order = require("../models/Order");
 const User = require("../models/User");
+const { StatusCodes } = require("http-status-codes");
 
 const placeOrder = async (req, res) => {
   const { userId } = req.user;
@@ -36,7 +37,14 @@ const allOrders = async (req, res) => {
 };
 
 const userOrders = async (req, res) => {
-  res.send("user orders");
+  const { userId } = req.user;
+  const orders = await Order.find({ userId });
+  res.status(StatusCodes.OK).json({
+    status: "success",
+    data: {
+      orders,
+    },
+  });
 };
 
 const updateStatus = async (req, res) => {
