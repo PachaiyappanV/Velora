@@ -1,5 +1,26 @@
+const Order = require("../models/Order");
+const User = require("../models/User");
+
 const placeOrder = async (req, res) => {
-  res.send("place order");
+  const { userId } = req.user;
+  const { products, amount, address } = req.body;
+
+  const orderData = {
+    userId,
+    products,
+    amount,
+    address,
+    paymentMethod: "cod",
+    payment: false,
+    date: Date.now(),
+  };
+
+  const order = await Order.create(orderData);
+  await User.findByIdAndUpdate(userId, { cartData: {} });
+  res.status(StatusCodes.OK).json({
+    status: "success",
+    message: "order placed successfully",
+  });
 };
 
 const placeOrderStripe = async (req, res) => {
