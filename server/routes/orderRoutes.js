@@ -8,6 +8,7 @@ const {
   allOrders,
   userOrders,
   updateStatus,
+  verifyStripe,
 } = require("../controllers/orderController");
 
 const {
@@ -26,4 +27,7 @@ router.post("/stripe", authenticateUser, placeOrderStripe);
 
 //User Routes
 router.get("/userOrders", authenticateUser, userOrders);
+
+//verify stripe
+router.post("/verifyStripe", authenticateUser, verifyStripe);
 module.exports = router;
