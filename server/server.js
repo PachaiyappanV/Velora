@@ -51,6 +51,9 @@ app.use(morgan("tiny"));
 app.use(express.json());
 app.use(cookieParser());
 
+app.get("/", (req, res) => {
+  res.send("Welcome to E-Commerce API");
+});
 app.use("/api/auth", authRouter);
 app.use("/api/products", productRouter);
 app.use("/api/cart", cartRouter);
