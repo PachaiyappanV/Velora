@@ -98,10 +98,6 @@ const verifyStripe = async (req, res) => {
   }
 };
 
-const placeOrderRazorPay = async (req, res) => {
-  res.send("place order RazorPay");
-};
-
 const allOrders = async (req, res) => {
   const orders = await Order.find({});
   res.status(StatusCodes.OK).json({

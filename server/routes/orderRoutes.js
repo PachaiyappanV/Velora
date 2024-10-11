@@ -3,7 +3,7 @@ const router = express.Router();
 
 const {
   placeOrder,
-  placeOrderRazorPay,
+
   placeOrderStripe,
   allOrders,
   userOrders,
@@ -22,7 +22,7 @@ router.patch("/status", authenticateAdmin, updateStatus);
 
 //Payment Routes
 router.post("/place", authenticateUser, placeOrder);
-router.post("/razorpay", authenticateUser, placeOrderRazorPay);
+
 router.post("/stripe", authenticateUser, placeOrderStripe);
 
 //User Routes
