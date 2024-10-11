@@ -27,7 +27,8 @@ const errorHandlerMiddleware = require("./middleware/error-handler");
 const allowedOrigins = [
   "http://localhost:5100",
   "http://localhost:5173",
-  "https://e-commerce-app-three-kappa.vercel.app",
+  "https://velora-admin-panel.vercel.app",
+  "https://velora-two.vercel.app",
 ];
 
 app.use(
