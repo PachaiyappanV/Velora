@@ -1,12 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { assets } from "../assets/assets";
 import CartTotal from "../components/CartTotal";
 import Title from "../components/Title";
 import { ShopContext } from "../context/ShopContext";
 
 const Cart = () => {
-  const { products, currency, cartItems, updateQuantity } =
+  const { products, currency, cartItems, updateQuantity, getCartCount } =
     useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
   const navigate = useNavigate();
@@ -92,8 +93,14 @@ const Cart = () => {
           <CartTotal />
           <div className="w-full text-end">
             <button
-              onClick={() => navigate("/place-order")}
-              className="bg-black text-sm text-white my-8 px-8 py-3"
+              onClick={() => {
+                if (getCartCount() > 0) {
+                  navigate("/place-order");
+                } else {
+                  toast.warn("Cart can't be empty");
+                }
+              }}
+              className=" text-sm text-black my-8 px-8 py-3 border border-black hover:bg-black hover:text-white transition-all duration-500 "
             >
               PROCEED TO CHECKOUT
             </button>

@@ -87,7 +87,8 @@ const Product = () => {
           </div>
           <button
             onClick={() => addToCart(productData._id, size)}
-            className=" bg-black text-white px-8 py-3 text-sm active:bg-gray-700"
+            className="  text-black px-8 py-3 text-sm active:bg-gray-700 
+            border border-black hover:bg-black hover:text-white transition-all duration-500"
           >
             ADD TO CART
           </button>
