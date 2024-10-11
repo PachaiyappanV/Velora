@@ -141,4 +141,5 @@ module.exports = {
   allOrders,
   userOrders,
   updateStatus,
+  verifyStripe,
 };

@@ -69,7 +69,22 @@ const PlaceOrder = () => {
               Authorization: `Bearer ${token}`,
             },
           });
+          setCartItems({});
+          navigate("/orders");
           toast.success("Order placed successfully");
+          break;
+
+        case "stripe":
+          const { data } = await axios.post(
+            `${apiUrl}/api/order/stripe`,
+            orderData,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          window.location.replace(data.session_url);
           break;
         default:
           break;
@@ -221,7 +236,8 @@ const PlaceOrder = () => {
           <div className="w-full text-end mt-8">
             <button
               type="submit"
-              className="bg-black text-white px-16 py-3 text-sm"
+              className="bg-black text-white px-16 py-3 text-sm 
+              focus:bg-gray-400 hover:bg-gray-600 focus:cursor-not-allowed"
             >
               PLACE ORDER
             </button>
