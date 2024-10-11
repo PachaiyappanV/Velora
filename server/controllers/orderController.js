@@ -54,7 +54,14 @@ const userOrders = async (req, res) => {
 };
 
 const updateStatus = async (req, res) => {
-  res.send("update status");
+  const { orderId, status } = req.body;
+
+  await Order.findByIdAndUpdate(orderId, { status });
+
+  res.status(StatusCodes.OK).json({
+    status: "success",
+    message: "order status updated successfully",
+  });
 };
 
 module.exports = {
