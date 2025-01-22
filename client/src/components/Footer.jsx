@@ -30,14 +30,14 @@ const Footer = () => {
           <p className="text-lg sm:text-xl font-medium mb-4">GET IN TOUCH</p>
           <ul className="flex flex-col gap-1 text-gray-600">
             <li>+1-212-456-7890</li>
-            <li>contact@foreveryou.com</li>
+            <li>contact@velora.com</li>
           </ul>
         </div>
       </footer>
       <div>
         <hr />
         <p className="py-5 text-sm text-center">
-          Copyright 2024@ pachaiyappan-All Rights Reserved.
+          Copyright 2025@ velora-All Rights Reserved.
         </p>
       </div>
     </div>
