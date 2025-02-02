@@ -15,6 +15,7 @@ import PlaceOrder from "./pages/PlaceOrder";
 import Product from "./pages/Product";
 import Verify from "./pages/Verify";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="/verify" element={<Verify />} />
       </Routes>
       <Footer />
+      <SpeedInsights />
       <Analytics />
     </div>
   );
